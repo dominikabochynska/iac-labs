@@ -47,10 +47,11 @@ jobs:
 
   lint:
 
+
     runs-on: ubuntu-latest
     concurrency:
       group: some-group-name
-    needs: build
+    needs: build 
     defaults:
       run:
         working-directory: ./example-app
@@ -64,14 +65,15 @@ jobs:
         
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.3.3
-
-    - name: Load cache
+        
+    - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
         path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
         key: ${{ runner.os }}-venv
-    - name: Lint with flake8
+        
+    - name: Test with lint
       run: |
         source $VENV
         poetry run task lint
